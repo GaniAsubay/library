@@ -13,7 +13,15 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
         '@tests' => '@app/tests',
     ],
+    'controllerMap' => [
+        'mongodb-migrate' => 'yii\mongodb\console\controllers\MigrateController'
+    ],
     'components' => [
+        'mongodb' => [
+            'class' => '\yii\mongodb\Connection',
+            'dsn' => 'mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb',
+            'defaultDatabaseName' => 'test',
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
@@ -37,12 +45,18 @@ $config = [
     */
 ];
 
-if (YII_ENV_DEV) {
+
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
+        'generators' => [
+            'mongoDbModel' => [
+                'class' => 'yii\mongodb\gii\model\Generator'
+            ]
+        ],
+        'allowedIPs' => ['*'],
     ];
-}
+
 
 return $config;

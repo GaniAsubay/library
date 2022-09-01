@@ -33,4 +33,8 @@ tests/_output/*
 tests/_support/_generated
 
 #vagrant folder
-/.vagrant
+/vagrant
+
+/web/access.log
+/web/error.log
+/.github
